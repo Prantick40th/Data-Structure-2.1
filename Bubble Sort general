@@ -1,0 +1,52 @@
+#include<bits/stdc++.h>
+int main()
+{
+
+    int ar[6];
+    int i,j,t=0;
+
+    for(int m=0 ; m<6 ; m++){
+        scanf("%d",&ar[m]);}
+
+    for(int n=0 ; n<6 ; n++){
+        printf("% d",ar[n]);}
+
+
+
+    /*for(i=0 ; i<6-1 ; i++){
+        for(j=0 ; j-6-i ; j++){
+            if(ar[j]>ar[j+1])
+            {
+                //ar[j] = ar[j] + ar[j+1];
+                //ar[j+1] = ar[j] - ar[j+1];
+               // ar[j] = ar[j] - ar[j+1];
+
+                t = ar[j] ;
+                ar[j] =  ar[j+1];
+                ar[j+1] = t;
+            }
+        }
+    }*/
+
+    for(i=0 ; i<6-1 ; i++)
+        {
+            for(j=i+1 ; j<6 ; j++)
+            {
+                if(ar[i] > ar[j])
+                {
+                    t = ar[i];
+                    ar[i] = ar[j];
+                    ar[j] = t;
+                }
+            }
+        }
+
+    printf("\n");
+    for(int n=0 ; n<6 ; n++){
+        printf("% d",ar[n]);}
+
+
+    return 0;
+
+
+}
