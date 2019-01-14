@@ -1,0 +1,33 @@
+#include<stdio.h>
+int main ()
+{
+
+    int ar [5];
+    int flag=0;
+
+    for (int i=0 ;i<5; i++)
+    {
+        scanf("%d",&ar[i]);
+    }
+
+    for (int i=0 ; i<5-1; i++)
+    {
+        if(ar[i]>ar[i+1]){
+            flag = 1;
+            break;
+        }
+        else
+            flag = 0;
+    }
+
+    if(flag==1)
+    {
+
+        printf("nOT sorted");
+    }
+    if(flag==0)
+    {
+        printf("sorted");
+    }
+
+}
