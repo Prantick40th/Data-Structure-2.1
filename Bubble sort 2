@@ -1,0 +1,81 @@
+#include<bits/stdc++.h>
+int main()
+{
+    int ar[100];
+    int n;
+    printf("Enter the nth size of array ");
+    scanf("%d",&n);
+
+    for(int i=0 ; i<n ; i++)
+        scanf("%d",&ar[i]);
+
+    printf("\n");
+
+    for(int i=0 ; i<n ; i++)
+        printf("%d ",ar[i]);
+
+    printf("\n");
+
+    int key;
+    printf("Enter the index for sorting array ");
+    scanf("%d",&key);
+
+    printf("\n");
+
+
+    int k=n;
+
+    while(k!=0){
+
+        int t = 0;
+        for(int j=0 ; j<key ; j++){
+            if(ar[j]>ar[j+1])
+            {
+                int temp = ar[j];
+                ar[j] = ar[j+1];
+                ar[j+1] = temp;
+
+                t=j;
+            }
+        }
+
+        for(int j=key ; j<n-1 ; j++){
+            if(ar[j]<ar[j+1])
+            {
+                int temp = ar[j];
+                ar[j] = ar[j+1];
+                ar[j+1] = temp;
+
+                t=j;
+            }
+        }
+
+        k=t;
+    }
+
+
+    printf("\n");
+
+    for(int i=0 ; i<n ; i++)
+        printf("%d ",ar[i]);
+    int s;
+    printf("\nEnter a value to search ");
+    scanf("%d",&s);
+
+    int i;
+
+    for( i=0 ; i<n ; i++){
+        if(ar[i]==s){
+
+            printf("the number is found, in %d position",i+1);
+            break;
+        }
+    }
+
+
+    if(i==n)
+        printf("invalid number");
+
+
+    return 0;
+}
