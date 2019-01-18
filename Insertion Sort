@@ -1,0 +1,37 @@
+#include<bits/stdc++.h>
+#include<math.h>
+
+void insertionSort(int ar[],int n){
+
+    for(int j=1 ; j<=n ; j++){
+        int t = ar[j];
+        int i = j-1;
+
+        while(t<ar[i])
+        {
+            ar[i+1] = ar[i];
+            i--;
+        }
+        ar[i+1] = t;
+    }
+
+    for(int i=1;i<=n;i++)
+        printf ("%d ",ar[i]);
+}
+
+int main()
+{
+    int n;
+    scanf("%d",&n);
+
+    int ar[n+1];
+    ar[0]=(pow(2,32)-1)*-1;
+
+    for(int i=1;i<=n ; i++){
+        scanf("%d",&ar[i]);
+    }
+
+    insertionSort(ar,n);
+
+    return 0;
+}
