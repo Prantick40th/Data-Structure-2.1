@@ -1,0 +1,165 @@
+#include<bits/stdc++.h>
+#include<time.h>
+
+int ar1[1000],ar2[1000],ar3[1000];
+int comp1=0,comp2=0,comp3=0;
+int move1=0,move2=0,move3=0;
+
+void bubblesort(int ar1[],int n)
+{
+    int k=n;
+    while(k!=0)
+    {
+        int t=0;
+        for(int j=0 ; j<k ; j++)
+        {
+            if(ar1[j]>ar1[j+1])
+            {
+                comp1++;
+                int temp=ar1[j+1];
+                ar1[j+1]=ar1[j];
+                ar1[j]=temp;
+                t=j;
+                move1++;
+            }
+        }
+        k=t;
+    }
+    printf("\nSorted Elements : ");
+    for(int i=0 ; i<n ; i++)
+        printf ("%d ",ar1[i]);
+}
+
+void insertationsort(int ar2[],int n)
+{
+    int art[n+1];
+    art[0]=(pow(2,32)-1)*-1;
+
+    for(int i=0 ; i<n ; i++)
+        art[i+1]=ar2[i];
+
+    for(int j=1 ; j<=n ; j++)
+    {
+        int t=art[j];
+        int i=j-1;
+        while(t<art[i])
+        {
+            comp2++;
+            art[i+1]=art[i];
+            i--;
+        }
+        art[i+1]=t;
+        move2++;
+    }
+
+    printf("\nSorted Elements : ");
+    for(int i=1 ; i<=n ; i++)
+        printf ("%d ",art[i]);
+}
+
+void selectionsort(int ar3[],int n)
+{
+    for(int i=n-1 ; i>=0 ; i--)
+    {
+        int t=0;
+        for(int j=1 ; j<=i ; j++)
+        {
+            if(ar3[t]<ar3[j])
+            {
+                comp3++;
+                t=j;
+            }
+        }
+        int temp=ar3[t];
+        ar3[t]=ar3[i];
+        ar3[i]=temp;
+        move3++;
+    }
+    printf("\nSorted Elements : ");
+    for(int i=0 ; i<n ; i++)
+        printf ("%d ",ar3[i]);
+}
+
+int main()
+{
+    int ar[1000];
+    printf("Size of Array ");
+    int n;
+    scanf ("%d",&n);
+
+    for(int i=0 ; i<n ; i++){
+        ar[i]=rand()%100+1;
+    }
+
+    for(int i=0 ; i<n ; i++){
+        printf("%d ",ar[i]);
+    }
+
+    int key;
+
+    printf("\n\nSelect your sorting algorithm \n");
+    printf("1.Bubble Sort \n");
+    printf("2.Insertion Sort \n");
+    printf("3.Selection Sort \n");
+
+    while(1)
+    {
+        scanf("%d",&key);
+
+            if(key==1)
+            {
+                clock_t t1,t2;
+
+                t1=clock();
+                bubblesort(ar,n);
+                t2=clock();
+
+                double time = difftime(t2, t1)/CLOCKS_PER_SEC;
+
+                printf("\n");
+                printf("\nNumber of data comparison : %d\n",comp1);
+                printf("Number of data movement : %d\n",move1);
+                printf("Time consuming : %.3f\n",time);
+
+
+
+            }
+            else if(key==2)
+            {
+                clock_t t1,t2;
+
+                t1=clock();
+                selectionsort(ar,n);
+                t2=clock();
+
+                double time = difftime(t2, t1)/CLOCKS_PER_SEC;
+
+                printf("\n");
+                printf("\nNumber of data comparison : %d\n",comp2);
+                printf("Number of data movement : %d\n",move2);
+                printf("Time consuming : %.3f\n",time);
+            }
+            else if(key==3)
+            {
+                clock_t t1,t2;
+
+                t1=clock();
+                insertationsort(ar,n);
+                t2=clock();
+
+                double time = difftime(t2, t1)/CLOCKS_PER_SEC;
+
+                printf("\n");
+                printf("\nNumber of data comparison : %d\n",comp3);
+                printf("Number of data movement : %d\n",move3);
+                printf("Time consuming : %.3f\n",time);
+            }
+            else
+            {
+                 printf("\tError Data");
+                 break;
+            }
+
+    }
+    return 0;
+}
