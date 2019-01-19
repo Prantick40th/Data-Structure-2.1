@@ -3,7 +3,7 @@
 
 int ar1[1000],ar2[1000],ar3[1000];
 int comp1=0,comp2=0,comp3=0;
-int move1=0,move2=0,move3=0;
+int move1=0,move2=0,move3=0,move4=0,move5=0,move6=0;
 
 void bubblesort(int ar1[],int n)
 {
@@ -80,6 +80,34 @@ void selectionsort(int ar3[],int n)
         printf ("%d ",ar3[i]);
 }
 
+int binarySearch(int ar[],int n,int x)
+{
+    int l = 0;
+    int r = n-1;
+
+    while (l<= r){
+        int m = (l+r)/2;
+
+        if (ar[m] == x)
+            return m;
+
+        if (ar[m] < x){
+            l = m + 1;
+            move4++;
+            move5++;
+            move6++;
+        }
+
+        else{
+            r = m - 1;
+            move4++;
+            move5++;
+            move6++;
+        }
+    }
+    return -1;
+}
+
 int main()
 {
     int ar[1000];
@@ -108,7 +136,7 @@ int main()
 
             if(key==1)
             {
-                clock_t t1,t2;
+                clock_t t1,t2,t3,t4;
 
                 t1=clock();
                 bubblesort(ar,n);
@@ -119,14 +147,35 @@ int main()
                 printf("\n");
                 printf("\nNumber of data comparison : %d\n",comp1);
                 printf("Number of data movement : %d\n",move1);
-                printf("Time consuming : %.3f\n",time);
+                printf("Time consuming : %.3f\n\n",time);
+
+                int x;
+                printf("Search a value ");
+                scanf("%d",&x);
+                t3=clock();
+                int result = binarySearch(ar, n , x);
+                t4=clock();
+
+                double timeb = difftime(t2, t1)/CLOCKS_PER_SEC;
+
+                if(result == -1)
+                        printf("Element is not present"
+                            " in array\n");
+                else{
+                        printf("Element is present at "
+                            "index %d \n",
+                            result);
+                }
+                printf("Number of data movement : %d\n",move4);
+                printf("Time consuming : %.3f\n\n",timeb);
+
 
 
 
             }
             else if(key==2)
             {
-                clock_t t1,t2;
+                clock_t t1,t2,t3,t4;
 
                 t1=clock();
                 selectionsort(ar,n);
@@ -138,10 +187,31 @@ int main()
                 printf("\nNumber of data comparison : %d\n",comp2);
                 printf("Number of data movement : %d\n",move2);
                 printf("Time consuming : %.3f\n",time);
+
+                int x;
+                printf("Search a value ");
+                scanf("%d",&x);
+                t3=clock();
+                int result = binarySearch(ar, n , x);
+                t4=clock();
+
+                double timeb = difftime(t4, t3)/CLOCKS_PER_SEC;
+
+                if(result == -1)
+                        printf("Element is not present"
+                            " in array\n");
+                else{
+                        printf("Element is present at "
+                            "index %d \n",
+                            result);
+                }
+                printf("Number of data movement : %d\n",move5);
+                printf("Time consuming : %.3f\n\n",timeb);
             }
+
             else if(key==3)
             {
-                clock_t t1,t2;
+                clock_t t1,t2,t3,t4;
 
                 t1=clock();
                 insertationsort(ar,n);
@@ -153,6 +223,26 @@ int main()
                 printf("\nNumber of data comparison : %d\n",comp3);
                 printf("Number of data movement : %d\n",move3);
                 printf("Time consuming : %.3f\n",time);
+
+                int x;
+                printf("Search a value ");
+                scanf("%d",&x);
+                t3=clock();
+                int result = binarySearch(ar, n , x);
+                t4=clock();
+
+                double timeb = difftime(t4, t3)/CLOCKS_PER_SEC;
+
+                if(result == -1)
+                        printf("Element is not present"
+                            " in array\n");
+                else{
+                        printf("Element is present at "
+                            "index %d \n",
+                            result);
+                }
+                printf("Number of data movement : %d\n",move6);
+                printf("Time consuming : %.3f\n\n",timeb);
             }
             else
             {
