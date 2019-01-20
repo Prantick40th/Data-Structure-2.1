@@ -3,9 +3,9 @@
 
 int ar1[1000],ar2[1000],ar3[1000];
 int comp1=0,comp2=0,comp3=0;
-int move1=0,move2=0,move3=0,move4=0,move5=0,move6=0;
+int move1=0,move2=0,move3=0,move4=0;
 
-void bubblesort(int ar1[],int n)
+void bubbleSort(int ar1[],int n)
 {
     int k=n;
     while(k!=0)
@@ -30,7 +30,7 @@ void bubblesort(int ar1[],int n)
         printf ("%d ",ar1[i]);
 }
 
-void insertationsort(int ar2[],int n)
+void insertationSort(int ar2[],int n)
 {
     int art[n+1];
     art[0]=(pow(2,32)-1)*-1;
@@ -57,7 +57,7 @@ void insertationsort(int ar2[],int n)
         printf ("%d ",art[i]);
 }
 
-void selectionsort(int ar3[],int n)
+void selectionSort(int ar3[],int n)
 {
     for(int i=n-1 ; i>=0 ; i--)
     {
@@ -82,27 +82,23 @@ void selectionsort(int ar3[],int n)
 
 int binarySearch(int ar[],int n,int x)
 {
-    int l = 0;
-    int r = n-1;
+    int left = 0;
+    int right = n-1;
 
-    while (l<= r){
-        int m = (l+r)/2;
+    while (left<= right){
+        int mid = left+(right-left)/2;
 
-        if (ar[m] == x)
-            return m;
+        if (ar[mid] == x)
+            return mid;
 
-        if (ar[m] < x){
-            l = m + 1;
+        if (ar[mid] < x){
+            left = mid + 1;
             move4++;
-            move5++;
-            move6++;
         }
 
         else{
-            r = m - 1;
+            right = mid - 1;
             move4++;
-            move5++;
-            move6++;
         }
     }
     return -1;
@@ -130,16 +126,14 @@ int main()
     printf("2.Insertion Sort \n");
     printf("3.Selection Sort \n");
 
-    while(1)
-    {
-        scanf("%d",&key);
+    scanf("%d",&key);
 
             if(key==1)
             {
                 clock_t t1,t2,t3,t4;
 
                 t1=clock();
-                bubblesort(ar,n);
+                bubbleSort(ar,n);
                 t2=clock();
 
                 double time = difftime(t2, t1)/CLOCKS_PER_SEC;
@@ -178,7 +172,7 @@ int main()
                 clock_t t1,t2,t3,t4;
 
                 t1=clock();
-                selectionsort(ar,n);
+                selectionSort(ar,n);
                 t2=clock();
 
                 double time = difftime(t2, t1)/CLOCKS_PER_SEC;
@@ -205,7 +199,7 @@ int main()
                             "index %d \n",
                             result);
                 }
-                printf("Number of data movement : %d\n",move5);
+                printf("Number of data movement : %d\n",move4);
                 printf("Time consuming : %.3f\n\n",timeb);
             }
 
@@ -214,7 +208,7 @@ int main()
                 clock_t t1,t2,t3,t4;
 
                 t1=clock();
-                insertationsort(ar,n);
+                insertationSort(ar,n);
                 t2=clock();
 
                 double time = difftime(t2, t1)/CLOCKS_PER_SEC;
@@ -241,15 +235,13 @@ int main()
                             "index %d \n",
                             result);
                 }
-                printf("Number of data movement : %d\n",move6);
+                printf("Number of data movement : %d\n",move4);
                 printf("Time consuming : %.3f\n\n",timeb);
             }
             else
             {
                  printf("\tError Data");
-                 break;
             }
 
-    }
     return 0;
 }
