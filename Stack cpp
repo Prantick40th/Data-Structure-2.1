@@ -1,0 +1,31 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+int main()
+{
+
+    stack<string> st;
+    stack <string > st2;
+
+    st.push("prantick");
+
+    st.push("you");
+
+    while(!st.empty()){
+        st2.push(st.top());
+        st.pop();
+    }
+    string s;
+    cin>>s;
+
+    while(!st2.empty()){
+            if(st2.top()== s)
+               break;
+    cout<<st2.top() <<endl;
+    st2.pop();
+    }
+
+
+
+    return 0;
+}
