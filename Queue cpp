@@ -1,0 +1,24 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+int main()
+{
+    queue <string> q;
+
+   
+    q.push("you");
+
+    printf("%d\n",q.size());
+
+
+    while(!q.empty())
+    {
+
+        cout<<q.front()<<endl;
+        q.pop();
+    }
+
+
+
+    return 0;
+}
