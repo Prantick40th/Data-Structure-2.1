@@ -1,0 +1,114 @@
+#include <bits/stdc++.h>
+#define MAXSIZE 100
+
+int queue[MAXSIZE];
+
+int front = -1;
+int rear = -1;
+int n = -1;
+
+
+void push(int value)
+{
+    if(n<MAXSIZE)
+    {
+        if(n<0)
+        {
+            queue[0] = value;
+            front = 0;
+            rear = 0;
+            n = 1;
+        }
+        else
+        {
+            queue[rear+1] = value;
+            rear++;
+            n++;
+        }
+    }
+    else
+    {
+        printf("Queue is full\n");
+    }
+}
+
+void pop()
+{
+    n--;
+    front++;
+}
+
+int Front()
+{
+    return queue[front];
+}
+
+int back()
+{
+    return queue[rear];
+}
+
+void display()
+{
+    for(int i=front; i<=rear; i++)
+    {
+        printf("%d\n",queue[i]);
+    }
+}
+
+int main()
+{
+    int a;
+    printf("1.push value ");
+    printf("\n2.pop value \n\n");
+
+    scanf("%d",&a);
+
+    while(1)
+    {
+
+        switch(a)
+        {
+        case 1 :
+        {
+            int size;
+            int value;
+            printf("Enter size ");
+            scanf("%d",&size);
+            printf("Scan Value \n");
+            for(int i=1 ; i<=size ; i++)
+            {
+                scanf("%d",&value);
+                push(value);
+            }
+
+            printf("\n\n");
+            display();
+        }
+
+        case 2 :
+        {
+            printf("How much element you want to pop ");
+            int size;
+            scanf("%d",&size);
+
+            for(int i=1 ; i<=size ; i++)
+            {
+                pop();
+
+                if(n<0)
+                {
+                    printf("Queue is Empty");
+                    break;
+                }
+
+            }
+            printf("\n\n");
+            display();
+        }
+        }
+    }
+
+
+    return 0;
+}
