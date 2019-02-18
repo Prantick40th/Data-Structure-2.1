@@ -245,3 +245,122 @@ int main()
 
     return 0;
 }
+
+
+
+
+
+#include<bits/stdc++.h>
+#include<stdio.h>
+#include<stdlib.h>
+
+using namespace std;
+typedef struct Node;
+struct Node{
+    int data;
+    Node *link;
+};
+struct Node *head;
+
+void insertFirst(Node *head,int data){
+    Node *current= (Node*)malloc(sizeof(Node));
+    current-> data = data;
+    current->link = head->link;
+    head->link = current;
+}
+
+void insertLast(Node *head,int data){
+    Node *current= (Node*)malloc(sizeof(Node));
+    Node *temp = head;
+    while(temp->link!=head){
+        temp = temp->link;
+    }
+    current-> data = data;
+    current->link = temp->link;
+    temp->link = current;
+}
+
+void deleteFirst(Node *head){
+    Node *temp;
+    if(head->link!=head){
+        temp=head->link;
+        head->link=temp->link;
+    }
+}
+
+void deleteLast(Node *head){
+    Node *pred;
+    Node *temp;
+    pred=head;
+    temp=pred->link;
+    if(head->link!=head){
+        while(temp->link!=head){
+            pred=temp;
+            temp=temp->link;
+        }
+        pred->link=head;
+    }
+}
+
+void printList(Node *head){
+    Node* current = head->link;
+    while(current != head){
+            printf("%d ",current->data);
+            current=current->link;
+    }
+    printf("\n");
+}
+
+int main(){
+    int i,n,num,choise,checker;
+    head=(Node *) malloc(sizeof(Node));
+    head->link=head;
+
+    while(1)
+    {
+    int ch;
+    printf("Enter your choice : \n");
+    printf("1.Insert First : \n");
+    printf("2.Insert Last : \n");
+    printf("3.Delete First : \n");
+    printf("3.Delete Last : \n");
+
+
+    scanf("%d",&ch);
+    switch(ch)
+    {
+    case 1 :
+    {
+        int data;
+        printf("Enter data \n");
+        scanf("%d",&data);
+        insertFirst(head,data);
+        printList(head);
+    }
+    case 2 :
+    {
+        int data;
+        printf("Enter data \n");
+        scanf("%d",&data);
+        insertLast(head,data);
+        printList(head);
+    }
+    case 3:
+        {
+            deleteFirst(head);
+            printList(head);
+        }
+    case 4:
+        {
+            deleteLast(head);
+            printList(head);
+        }
+
+    }
+    }
+
+
+
+    return 0;
+}
+
