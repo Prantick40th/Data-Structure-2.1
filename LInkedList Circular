@@ -1,0 +1,246 @@
+#include<bits/stdc++.h>
+#include<stdio.h>
+#include<stdlib.h>
+
+typedef struct Node
+{
+    int data;
+    struct Node* prev;
+    struct Node* next;
+};
+
+struct Node *head;
+
+Node *NewNode(int value)
+{
+    Node current =(Node)malloc(sizeof(Node));
+
+    current->data=value;
+    current->prev=NULL;
+    current->next=NULL;
+    return current;
+}
+
+/*void Insert(int value)
+{
+    Node *current = NewNode(value);
+
+    if(head==NULL)
+    {
+        head=current;
+        return;
+    }
+    head->prev=current;
+    current->next=head;
+    head=current;
+}*/
+
+void Insert(int value)
+{
+    Node *current = NewNode(value);
+
+    if(head==NULL)
+    {
+        head=current;
+        return;
+    }
+    else if(head->next == NULL && head->data>value)
+    {
+    current->next=head;
+    current->prev=NULL;
+    head=current;
+    return;
+    }
+    else
+    {
+        Node *temp = head;
+        while(temp->next != NULL && temp->next->data<value)
+        {
+            temp = temp->next;
+        }
+        current->next = temp->next;
+        current->prev = temp;
+        temp->next = current;
+        temp->next->prev = current;
+        return;
+    }
+}
+
+
+void Delete()
+{
+   Node *current = head;
+   head = head->next;
+   head-> prev=NULL;
+   free(current);
+}
+
+void printListRev()
+{
+  Node* current = head;
+
+  while(current!=NULL)
+  {
+      printf("%d ",current->data);
+      current = current->next;
+  }
+  printf("\n");
+}
+
+
+void printListFor()
+{
+  Node* temp=head;
+
+  if(temp!=NULL)
+  {
+     while(temp->next!=NULL)
+     {
+         temp=temp->next;
+     }
+
+     while(temp!=NULL)
+     {
+         printf("%d ",temp->data);
+         temp=temp->prev;
+     }
+     printf("\n");
+  }
+}
+
+
+int main()
+
+{
+    head=NULL;
+
+
+    for(int i=1 ; i<=5 ; i++)
+    {
+        int x = rand()%10+1;
+        Insert(x);
+    }
+    printListFor();
+    printListRev();
+    printf("\n\n");
+
+    int ch;
+    printf("Enter your choice : \n");
+    printf("1.Insert : \n");
+    printf("2.Delete : \n");
+
+    scanf("%d",&ch);
+    switch(ch)
+    {
+    case 1 :
+    {
+        int data;
+        printf("Enter data \n");
+        scanf("%d",&data);
+        Insert(data);
+        printListFor();
+        printListRev();
+    }
+    case 2 :
+    {
+        Delete();
+        printListFor();
+        printListRev();
+    }
+
+    }
+    return 0;
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+///////////////////////////////////////////////////
+
+
+
+
+#include<stdio.h>
+//sorted doubly linked list
+struct Node
+{
+    int info;
+    Node *blink, *flink;
+};
+
+Node *root = NULL;
+
+void insertNode(int x)
+{
+    if(root == NULL)
+    {
+        root = new Node();
+        root->info = x;
+        root->blink = NULL;
+        root->flink = NULL;
+    }
+    else if(root->blink == NULL && root->info > x)
+    {
+            Node *n = new Node();
+            n->info = x;
+            n->blink = NULL;
+            n->flink = root;
+            root = n;
+    }
+    else
+    {
+        Node *currentNode = new Node();
+        currentNode = root;
+        while(currentNode->flink != NULL && currentNode->flink->info < x)
+        {
+            currentNode = currentNode->flink;
+        }
+        Node *newNode = new Node();
+        newNode->info = x;
+        newNode->flink = currentNode->flink;
+        newNode->blink = currentNode;
+        currentNode->flink = newNode;
+        currentNode->flink->blink = newNode;
+
+    }
+}
+
+void printNode()
+{
+    Node *currentNode = root;
+    while(currentNode != NULL)
+    {
+        printf("<-%d->",currentNode->info);
+        currentNode = currentNode->flink;
+    }
+}
+
+int main()
+{
+    //int n;
+    insertNode(9);
+    insertNode(7);
+    insertNode(6);
+    insertNode(5);
+    insertNode(6);
+    insertNode(2);
+    insertNode(4);
+    insertNode(2);
+    insertNode(1);
+
+    printNode();
+
+    return 0;
+}
