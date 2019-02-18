@@ -1,0 +1,173 @@
+#include<bits/stdc++.h>
+using namespace std;
+typedef struct node node;
+struct node{
+    int data;
+    node *flink;
+    node *blink;
+};
+
+void insertFirst(node *head,int data){
+    node *newNode= (node *)malloc(sizeof(node));
+    node *p=head->blink;
+
+    newNode-> data = data;
+    newNode->flink=head;
+    newNode->blink=p;
+    p->flink=newNode;
+    head->blink=newNode;
+
+}
+
+void insertLast(node *dummy,int data){
+    node *newNode= (node *)malloc(sizeof(node));
+    node *p =dummy->flink;
+
+    newNode-> data = data;
+    newNode->flink = p;
+    newNode->blink = dummy;
+    p->blink = newNode;
+    dummy->flink=newNode;
+}
+
+void insertBefore(node *head,node *dummy, int checker,int data){
+    node *newNode= (node *)malloc(sizeof(node));
+    node *q=head->blink;
+    node *p;
+    while(q!=dummy){
+        if(checker==q->data){
+            p=q->flink;
+            newNode->flink=p;
+            newNode->blink=q;
+            p->blink=newNode;
+            q->flink=newNode;
+            newNode->data=data;
+            break;
+        }
+        else{
+            q=q->blink;
+        }
+    }
+}
+
+void deleteFont(node *head, node *dummy){
+    node *p;
+    if(head->blink!=dummy){
+        p=head->blink;
+        p=p->blink;
+        p->flink=head;
+        head->blink=p;
+    }
+}
+
+void deleteLast(node* head, node *dummy){
+    node *p;
+    if(dummy->flink!=head){
+        p=dummy->flink;
+        p=p->flink;
+        p->blink=dummy;
+        dummy->flink=p;
+    }
+}
+
+void deletespf(node *head,node *dummy,int data){
+    node *q=head->blink;
+    node *p;
+    while(q!=dummy){
+        if(data==q->data){
+            p=q->flink;
+            q=q->blink;
+            p->blink=q;
+            q->flink=p;
+            break;
+        }
+        else{
+            q=q->blink;
+        }
+    }
+}
+
+void print(node *head,node *dummy){
+    node* p = head->blink;
+    node *q= dummy;
+    cout <<"list is: ";
+    while(p != q){
+            cout << p->data <<" ";
+            p=p->blink;
+    }
+    cout <<endl;
+}
+
+void printReverse(node *head,node *dummy){
+    node* p = head;
+    node *q= dummy->flink;
+    cout <<"list in reverse is: ";
+    while(p != q){
+            cout << q->data <<" ";
+            q=q->flink;
+    }
+    cout <<endl;
+}
+
+int main(){
+    int i,n,num,choise,checker;
+    node *head;
+    node *dummy;
+    head=(node *) malloc(sizeof(node));
+    dummy=(node *) malloc(sizeof(node));
+    head->flink=NULL;
+    head->blink=dummy;
+    dummy->flink=head;
+    dummy->blink=NULL;
+
+    do{
+        cout <<"Menu:\n1.insert at first.\t";
+        cout <<"2.insert at last.\t";
+        cout<<"3.insert before."<<endl;
+        cout <<"4.delete from first.\t";
+        cout <<"5.delete from last.\t";
+        cout <<"6.delete specific."<<endl;
+        cout <<"7.exit"<<endl;
+        cin >>choise;
+        if (choise==1){
+                cout <<"number: ";
+                cin >>num;
+            insertFirst(head,num);
+            print(head,dummy);
+            printReverse(head,dummy);
+        }else if (choise==2){
+                cout <<"number: ";
+                cin >>num;
+            insertLast(dummy,num);
+            print(head,dummy);
+            printReverse(head,dummy);
+        }
+        else if (choise==3){
+                cout <<"before which number?: ";
+                cin >>checker;
+                cout <<"number: ";
+                cin >>num;
+                insertBefore(head,dummy,checker,num);
+                print(head,dummy);
+                printReverse(head,dummy);
+        }else if (choise==4){
+            deleteFont(head,dummy);
+            print(head,dummy);
+            printReverse(head,dummy);
+        }
+        else if (choise==5){
+            deleteLast(head,dummy);
+            print(head,dummy);
+            printReverse(head,dummy);
+        }
+        else if (choise==6){
+                cout <<"delete which number?: ";
+                cin >>num;
+                deletespf(head,dummy,num);
+                print(head,dummy);
+                printReverse(head,dummy);
+        }
+
+    }while(choise!=7);
+    return 0;
+}
