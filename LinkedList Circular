@@ -1,0 +1,140 @@
+#include<bits/stdc++.h>
+using namespace std;
+typedef struct node node;
+struct node{
+    int data;
+    node *link;
+};
+
+void insertFirst(node *head,int data){
+    node *newNode= (node *)malloc(sizeof(node));
+    newNode-> data = data;
+    newNode->link = head->link;
+    head->link = newNode;
+}
+
+void insertLast(node *head,int data){
+    node *newNode= (node *)malloc(sizeof(node));
+    node *p =head;
+    while(p->link!=head){
+        p=p->link;
+    }
+    newNode-> data = data;
+    newNode->link = p->link;
+    p->link = newNode;
+}
+
+void insertBefore(node *head,int checker,int data){
+    node *newNode= (node *)malloc(sizeof(node));
+    node *pred=head;
+    node *p=pred->link;
+    while(p!=head){
+        if(checker==p->data){
+            newNode->link=pred->link;
+            pred->link=newNode;
+            newNode->data=data;
+            break;
+        }
+        else{
+            pred=p;
+            p=p->link;
+        }
+    }
+}
+
+void deleteFont(node *head){
+    node *p;
+    if(head->link!=head){
+        p=head->link;
+        head->link=p->link;
+    }
+}
+
+void deleteLast(node *head){
+    node *pred, *p;
+    pred=head;
+    p=pred->link;
+    if(head->link!=head){
+        while(p->link!=head){
+            pred=p;
+            p=p->link;
+        }
+        pred->link=head;
+    }
+}
+
+void deletespf(node* head,int data){
+    node *pred=head;
+    node *p=pred->link;
+    while(p!=head){
+        if(data==p->data){
+            pred->link=p->link;
+            break;
+        }
+        else{
+            pred=p;
+            p=p->link;
+        }
+    }
+}
+
+void print(node *head){
+    node* pred = head->link;
+    cout <<"list is: ";
+    while(pred != head){
+            cout << pred->data <<" ";
+            pred=pred->link;
+    }
+    cout <<endl;
+}
+
+int main(){
+    int i,n,num,choise,checker;
+    node *head;
+    head=(node *) malloc(sizeof(node));
+    head->link=head;
+    do{
+        cout <<"Menu:\n1.insert at first.\t";
+        cout <<"2.insert at last.\t";
+        cout<<"3.insert before."<<endl;
+        cout <<"4.delete from first.\t";
+        cout <<"5.delete from last.\t";
+        cout <<"6.delete specific."<<endl;
+        cout <<"7.exit"<<endl;
+        cin >>choise;
+        if (choise==1){
+                cout <<"number: ";
+                cin >>num;
+            insertFirst(head,num);
+            print(head);
+        }else if (choise==2){
+                cout <<"number: ";
+                cin >>num;
+            insertLast(head,num);
+            print(head);
+        }
+        else if (choise==3){
+                cout <<"before which number?: ";
+                cin >>checker;
+                cout <<"number: ";
+                cin >>num;
+                insertBefore(head,checker,num);
+                print(head);
+        }else if (choise==4){
+            deleteFont(head);
+            print(head);
+        }
+        else if (choise==5){
+            deleteLast(head);
+            print(head);
+        }
+        else if (choise==6){
+                cout <<"delete which number?: ";
+                cin >>num;
+                deletespf(head,num);
+                print(head);
+        }
+
+    }while(choise!=7);
+    return 0;
+}
