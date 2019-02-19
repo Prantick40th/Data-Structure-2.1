@@ -1,0 +1,119 @@
+#include<bits/stdc++.h>
+#include<stdio.h>
+#include<stdlib.h>
+
+typedef struct Node
+{
+    int data;
+    struct Node *link;
+};
+struct Node *head;
+
+void push(int data,int index)
+{
+    Node current = (Node)malloc(sizeof(Node));
+
+    current->data=data;
+    current->link=NULL;
+
+    if(index==1)
+    {
+        current->link=head;
+        head=current;
+    }
+    else
+    {
+        Node* new_current = head;
+        for(int i=0 ; i<index-2 ; i++)
+        {
+            new_current = new_current->link;
+
+        }
+        current->link=new_current->link;
+        new_current->link=current;
+    }
+}
+
+
+
+void pop(int index)
+{
+    Node *current = head;
+
+    if(index==1)
+    {
+        head=current->link;
+        free(current);
+
+    }
+    else
+    {
+        for(int i=0 ; i<index-2 ; i++)
+        {
+            current=current->link;
+        }
+        Node* new_current=current->link;
+        current->link=new_current->link;
+        free(new_current);
+    }
+
+}
+
+
+void printList()
+{
+    Node *current = head;
+
+    printf("Linked List :");
+    while(current!= NULL)
+    {
+        printf("% d",current->data);
+        current = current->link;
+    }
+    printf("\n");
+}
+
+
+int main()
+{
+    head=NULL;
+
+    for(int i=1 ; i<=5 ; i++)
+    {
+        int x = rand()%10+1;
+        push(x,i);
+    }
+    printList();
+    printf("\n\n");
+
+    int ch;
+    printf("Enter your choice : \n");
+    printf("1.Insert Data by Index : \n");
+    printf("2.Delete Data by Index : \n");
+    printf("Display List : \n");
+
+
+    scanf("%d",&ch);
+    switch(ch)
+    {
+    case 1 :
+    {
+        int data,index;
+        printf("Enter data and index \n");
+        scanf("%d %d",&data,&index);
+        push(data,index);
+        printList();
+    }
+    case 2 :
+    {
+        int index;
+        printf("Enter index to pop ");
+        scanf("%d",&index);
+        pop(index);
+        printList();
+    }
+
+
+    }
+    return 0;
+}
