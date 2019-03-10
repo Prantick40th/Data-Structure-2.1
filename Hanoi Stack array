@@ -1,0 +1,68 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+struct tower
+{
+    int n,i,j,k;
+}Tower[10000];
+int cnt = 0;
+int top = -1;
+
+void Push(int n,int i,int j,int k)
+{
+    top++;
+
+    Tower[top].n = n;
+    Tower[top].i = i;
+    Tower[top].j = j;
+    Tower[top].k = k;
+
+}
+
+int* Pop()
+{
+    static int ar[4];
+    ar[0] = Tower[top].n;
+    ar[1] = Tower[top].i;
+    ar[2] = Tower[top].j;
+    ar[3] = Tower[top].k;
+    top--;
+    return ar;
+}
+
+int main()
+{
+    int n,i,j,k;
+    printf("Enter disk number :")
+    scanf("%d",&n);
+
+    Push(n,1,2,3);
+
+    while(top!=-1)
+    {
+
+        int *arr = Pop();
+
+        n = arr[0];
+        i = arr[1];
+        j = arr[2];
+        k = arr[3];
+
+        if(n==1)
+        {
+            printf("Move top disk from %d to %d.\n",i,k);
+            cnt++;
+
+        }
+        else
+        {
+            Push(n-1,i,k,j);
+            Push(1,i,j,k);
+            Push(n-1,j,i,k);
+        }
+    }
+
+    printf("\n\nTotal Movement %d",cnt);
+
+    return 0;
+}
