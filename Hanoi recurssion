@@ -1,0 +1,28 @@
+#include<bits/stdc++.h>
+int cnt = 0;
+void TowerOfHanoi(int n,char i,char j,char k)
+{
+    if (n == 1)
+    {
+        printf("\n Move disk 1 from tower %c to rod %c",i,k);
+        cnt++;
+        return;
+    }
+    TowerOfHanoi(n-1,i,k,j);
+    printf("\n Move disk %d from tower %c to rod %c", n,i,k);
+    cnt++;
+    TowerOfHanoi(n-1,j,i,k);
+}
+
+int main()
+{
+    printf("Enter the number of disks : ");
+    int n ;
+    scanf("%d",&n);
+
+    TowerOfHanoi(n,'i' , 'j' , 'k');
+
+    printf("\n\nTotal movement : %d\n",cnt);
+
+    return 0;
+}
