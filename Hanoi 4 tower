@@ -1,0 +1,23 @@
+#include <stdio.h>
+void hanoi(int n, char A, char B,char C, char D)
+{
+    if (n==0)
+        return;
+    if (n==1)
+    {
+        printf("Move disk %d from rod %c to rod %c\n",n,A,B);
+        return;
+    }
+    hanoi(n-2,A,C,D,B);
+    printf("Move disk %d from rod %c to rod %c\n",n-1,A,D);
+    printf("Move disk %d from rod %c to rod %c\n",n,A,B);
+    printf("Move disk %d from rod %c to rod %c\n",n-1,D,B);
+    hanoi(n-2,C,B,A,D);
+}
+int main()
+{
+    int n;
+    scanf("%d",&n);
+    hanoi(n, 'A', 'D', 'B', 'C');
+    return 0;
+}
