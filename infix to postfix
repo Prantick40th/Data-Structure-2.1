@@ -1,0 +1,147 @@
+#include<bits/stdc++.h>
+#include <ctype.h>
+#define MAXSIZE 100
+char Stack[MAXSIZE];
+int top=-1;
+char infix[100];
+char postfix[100];
+
+int precedence(char item)
+{
+    switch(item)
+    {
+    case '#': return 0;
+    case '(': return 1;
+    case '+': return 2;
+    case '-': return 2;
+    case '*': return 3;
+    case '/': return 3;
+    }
+}
+
+push(char item)
+{
+    ++top;
+    Stack[top]= item;
+}
+
+char pop()
+{
+    char x = Stack[top--];
+    return x;
+}
+
+void infix_postfix()
+{
+    char value,item;
+    int i=0,j=0;
+
+    push('#');
+
+    while( (value=infix[i++]) != NULL)
+    {
+        if( value == '(')
+                push(value);
+        else
+            if(isalpha(value))
+                postfix[j++]=value;
+            else
+                if( value == ')')
+                {
+                    while(Stack[top] != '(')
+                        postfix[j++]=pop();
+                        item=pop();
+                }
+                else
+                {
+                    if(precedence(value) <= precedence(Stack[top]))
+                        postfix[j++]=pop();
+                    push(value);
+                }
+    }
+
+    while( Stack[top] != '#')
+        postfix[j++]=pop();
+
+    postfix[j]='\0';
+
+    printf("\nPostfix Expression = %s\n",postfix);
+}
+
+
+void evaluation_postfix()
+{
+    char value;
+    int i = 0;
+    int num1,num2;
+    char x[10],y[10];
+    while((value = postfix[i++]) != NULL)
+    {
+        if(isdigit(value))
+            push(value-'0');
+        else
+        {
+            int j=0;
+            while(value!=' '){
+                x[j] = value;
+                j++;
+            }
+            while(j!=0){
+                pop();
+                j--;
+            }
+            int num2 = atoi(x);
+            
+            int k=0;
+            while(value == ' '+1){
+                y[k] = value;
+                k++;
+            }
+            while(k!=0){
+                pop();
+                k--;
+            }
+            int num1 = atoi(y);
+            
+
+
+            //num2 = pop();
+            //num1 = pop();
+
+            switch(value)
+            {
+            case '+' :
+                push(num1+num2);
+                break;
+            case '-' :
+                push(num1-num1);
+                break;
+            case '*' :
+                push(num1*num2);
+                break;
+            case '/' :
+                push(num1/num2);
+                break;
+            }
+        }
+    }
+    printf("\n\nResult : %d",Stack[top]);
+}
+
+
+int main()
+{
+
+    int i = 0;
+    printf("\nInfix Expression : ");
+    scanf("%s",infix);
+
+    infix_postfix();
+
+    evaluation_postfix();
+
+
+    return 0;
+
+
+}
