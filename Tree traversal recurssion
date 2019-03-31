@@ -1,0 +1,101 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+typedef struct Node
+{
+    int data;
+    Node* left;
+    Node* right;
+};
+
+Node* GetNewNode(int data)
+{
+    Node* newNode=new Node();
+    newNode->data=data;
+    newNode->left=newNode->right=NULL;
+    return newNode;
+}
+
+Node* Insert(Node* root,int data)
+{
+    if(root==NULL)
+        root=GetNewNode(data);
+    else if(data<=root->data)
+        root->left=Insert(root->left,data);
+    else
+        root->right=Insert(root->right,data);
+    return root;
+}
+
+/*bool Search(Node* root,int data)
+{
+    if(root==NULL)
+        return false;
+    else if(root->data==data)
+        return true;
+    else if(data<=root->data)
+        return Search(root->left,data);
+    else
+        return Search(root->right,data);
+}*/
+
+void Postorder(Node* node)
+{
+    if (node == NULL)
+        return;
+
+    Postorder(node->left);
+    Postorder(node->right);
+    printf("%d ",node->data);
+}
+
+void Inorder(Node* node)
+{
+    if (node == NULL)
+        return;
+    Inorder(node->left);
+    printf("%d ",node->data);
+    Inorder(node->right);
+}
+
+void Preorder(Node* node)
+{
+    if (node == NULL)
+        return;
+    printf("%d ",node->data);
+    Postorder(node->left);
+    Postorder(node->right);
+}
+
+int main()
+{
+    Node* root=NULL;
+
+    printf("Enter number of nodes : \n\n");
+    int n,x;
+    scanf("%d",&n);
+    for(int i=0 ; i<n ; i++){
+       scanf("%d",&x);
+       root = Insert(root,x);
+    printf("\n\n");
+    }
+
+    /*
+    root = Insert(root,1);
+    root = Insert(root,2);
+    root = Insert(root,3);
+    root = Insert(root,4);
+    root = Insert(root,5);
+    */
+
+    Postorder(root);
+    printf("\n\n");
+    Inorder(root);
+    printf("\n\n");
+    Preorder(root);
+    printf("\n\n");
+
+    return 0;
+}
+
+
