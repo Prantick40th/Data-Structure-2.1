@@ -1,0 +1,178 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+typedef struct Node
+{
+    int data;
+    Node* right;
+    Node* left;
+};
+
+Node *create(int data)
+{
+    Node *temp=new Node();
+    temp->data=data;
+    temp->left=NULL;
+    temp->right=NULL;
+    return temp;
+}
+Node *min(Node *node)
+{
+    Node* current = node;
+    while(current->left!=NULL)
+          current=current->left;
+    return current;
+}
+Node *max(Node *node)
+{
+    Node* current = node;
+    while(current->right!=NULL)
+          current=current->right;
+    return current;
+}
+
+Node *insert(Node* root,int data)
+{
+    if(root==NULL)
+        root=create(data);
+    else if(data<=root->data)
+        root->left=insert(root->left,data);
+    else
+        root->right=insert(root->right,data);
+    return root;
+}
+
+Node *Delete(Node *root,int data)
+{
+    if(root==NULL)
+        return root;
+    if(data<root->data)
+        root->left = Delete(root->left,data);
+    else if(data>root->data)
+        root->right = Delete(root->right,data);
+    else
+    {
+        if(root->left==NULL)
+        {
+            struct Node *temp = root->left;
+            free(root);
+            return temp;
+        }
+        struct Node* temp = min(root->right);
+        root->data = temp->data;
+        root->right = Delete(root->right,temp->data);
+    }
+    return root;
+}
+
+bool Search(Node *root,int data)
+{
+    if(root==NULL)
+        return false;
+    else if(root->data==data)
+        return true;
+    else if(data<=root->data)
+        return Search(root->left,data);
+    else
+        return Search(root->right,data);
+}
+
+void inorder(Node *node)
+{
+    if(node==NULL)
+        return;
+    inorder(node->left);
+    printf("%d ",node->data);
+    inorder(node->right);
+}
+
+
+void predecessor(Node *node,Node*& pre,int val)
+{
+    if(node==NULL)
+        return;
+    if(node->data==val)
+    {
+        if(node->left!=NULL)
+        {
+            Node* cur=node->left;
+            while(cur->right!=NULL)
+                cur=cur->right;
+            pre=cur;
+        }
+    }
+    if(node->data>val)
+    {
+        predecessor(node->left,pre,val);
+    }
+    else
+    {
+        pre=node;
+        predecessor(node->right,pre,val);
+    }
+}
+
+void successor(Node* node,Node*& suc,int val)
+{
+    if(node==NULL)
+        return;
+    if(node->data==val)
+    {
+        if(node->right!=NULL)
+        {
+            Node* cur=node->right;
+            while(cur->left!=NULL)
+                cur=cur->left;
+            suc=cur;
+        }
+    }
+    if(node->data>val)
+    {
+        suc=node;
+        successor(node->left,suc,val);
+    }
+    else
+    {
+        successor(node->right,suc,val);
+    }
+}
+
+int main()
+{
+    Node* root=NULL;
+
+    root=insert(root,1);
+    root=insert(root,2);
+    root=insert(root,3);
+    root=insert(root,4);
+    root=insert(root,5);
+    root=insert(root,6);
+    root=insert(root,7);
+
+    printf("Max value  %d\n",max(root)->data);
+    printf("Min value  %d\n",min(root)->data);
+
+    int key=6;
+    if(Search(root,key)==true)
+        printf("Not found\n");
+    else
+        printf("Found\n");
+
+    Node *suc = NULL;
+    Node *pre = NULL;
+
+    successor(root,suc,key);
+    printf("Successor of %d is %d\n",key,suc->data);
+
+    predecessor(root,pre,key);
+    printf("Successor of %d is %d\n",key,pre->data);
+
+    printf("\nInorder traversal : ");
+    inorder(root);
+
+    root=Delete(root,4);
+    printf("\nInorder traversal after deleting : ");
+    inorder(root);
+
+    return 0;
+}
