@@ -1,0 +1,80 @@
+#include <bits/stdc++.h>
+using namespace std;
+int arraySize,heapSize;
+int parent (int index)
+{
+    return index/2;
+}
+int left (int index)
+{
+    return 2*index;
+
+}
+int right (int index)
+{
+    return 2*index+1;
+}
+void min_heapify(int ar[],int index)
+{
+
+    int l= left(index);
+    int r= right(index);
+    int smallest = index;
+    if (l<= heapSize && ar [l]<ar [index])
+    {
+        smallest =l;
+    }
+    if (r<= heapSize && ar [r]<ar [smallest])
+    {
+        smallest =r;
+    }
+    if (index != smallest)
+    {
+        swap(ar[index],ar[smallest]);
+        min_heapify(ar,smallest);
+    }
+}
+
+void  buildMinHeap(int ar[])
+{
+    heapSize= arraySize;
+    for (int i = arraySize/2; i>=1; i--)
+    {
+        min_heapify(ar,i);
+    }
+}
+
+void heapSort(int ar[])
+{
+    buildMinHeap(ar);
+    heapSize=arraySize;
+    for (int i = heapSize; i>=2; i--)
+    {
+        swap(ar[1],ar[i]);
+        heapSize--;
+        min_heapify(ar,1);
+
+    }
+}
+
+
+
+int main (void)
+{
+    cout<<"Enter array size : ";
+    cin>>arraySize;
+    int ar[arraySize];
+    cout<<"Enter array element : ";
+    for(int i =1; i<=arraySize; i++)
+    {
+        cin>>ar[i];
+    }
+    heapSort(ar);
+    cout<<"sorted array : ";
+    for(int i =1; i<=arraySize; i++)
+    {
+        cout<<ar[i] << " ";
+    }
+    return 0;
+
+}
